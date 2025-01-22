@@ -179,7 +179,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
             throw new Error("Unable to list tools");
         }
         let tools = await toolsResponse.json();
-        tools.forEach(tool => {
+        tools.forEach((tool: any) => {
             tool.name = `${process.env.TOOL_PREFIX||''}${tool.name}`;
         });
         log(`Successfully fetched tools: ${JSON.stringify(tools)}`);
