@@ -17,7 +17,7 @@ The full path on MacOS: `~/Library/Application\ Support/Claude/claude_desktop_co
   "mcpServers": {
     "jetbrains": {
       "command": "npx",
-      "args": ["-y", "@namp/mcp-proxy"]
+      "args": ["-y", "@rosite/mcp-proxy"]
     }
   }
 }
@@ -32,6 +32,26 @@ If you're running multiple IDEs with MCP server and want to connect to the speci
   "TOOL_PREFIX": "<prefix>_"
 }
 ```
+The IDE_PORT can be changed in Settings > Build, Execution, Deployment > Debugger.
+```json
+"phpstorm": {
+  "command": "npx",
+  "args": ["-y", "@rosite/mcp-proxy"],
+  "env": {
+    "IDE_PORT": "63342",
+    "TOOL_PREFIX": "phpstorm_"
+  }
+},
+"webstorm": {
+  "command": "npx",
+  "args": ["-y", "@rosite/mcp-proxy"],
+  "env": {
+    "IDE_PORT": "63343",
+    "TOOL_PREFIX": "webstorm_"
+  }
+}
+```
+
 
 By default, we connect to IDE on  127.0.0.1 but you can specify a different address/host:
 ```json
