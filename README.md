@@ -10,14 +10,14 @@ https://plugins.jetbrains.com/plugin/26071-mcp-server
 ## Usage with Claude Desktop
 
 To use this with Claude Desktop, add the following to your `claude_desktop_config.json`.
-The full path on MacOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`, on Windows: `%APPDATA%/Claude/claude_desktop_config.json`.
+The full path on MacOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`, on Windows: `%APPDATA%/Claude/claude_desktop_config.json`, on Linux `~/.config/Claude/claude_desktop_config.json`.
 
 ```json
 {
   "mcpServers": {
     "jetbrains": {
       "command": "npx",
-      "args": ["-y", "@jetbrains/mcp-proxy"]
+      "args": ["-y", "@namp/mcp-proxy"]
     }
   }
 }
@@ -28,7 +28,8 @@ The full path on MacOS: `~/Library/Application\ Support/Claude/claude_desktop_co
 If you're running multiple IDEs with MCP server and want to connect to the specific one, add to the MCP server configuration:
 ```json
 "env": {
-  "IDE_PORT": "<port of IDE's built-in webserver>"
+  "IDE_PORT": "<port of IDE's built-in webserver>",
+  "TOOL_PREFIX": "<prefix>_"
 }
 ```
 
@@ -50,4 +51,3 @@ To enable logging add:
 1. Tested on macOS
 2. `brew install node pnpm`
 3. Run `pnpm build` to build the project
-
