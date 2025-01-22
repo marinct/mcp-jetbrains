@@ -1,5 +1,5 @@
 {
-  "name": "@namp/mcp-proxy",
+  "name": "@rosite/mcp-proxy",
   "version": "1.7.1",
   "description": "A MCP proxy to redirect requests to JetBrains IDEs",
   "main": "dist/src/index.js",
