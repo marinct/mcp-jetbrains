@@ -178,7 +178,10 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
             log(`Failed to fetch tools with status ${toolsResponse.status}`);
             throw new Error("Unable to list tools");
         }
-        const tools = await toolsResponse.json();
+        let tools = await toolsResponse.json();
+        tools.forEach(tool => {
+            tool.name = `${process.env.TOOL_PREFIX||''}${tool.name}`;
+        });
         log(`Successfully fetched tools: ${JSON.stringify(tools)}`);
         return {tools};
     } catch (error) {
@@ -191,6 +194,7 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
  * Handle calls to a specific tool by using the *cached* endpoint.
  */
 async function handleToolCall(name: string, args: any): Promise<CallToolResult> {
+    name = name.replace(process.env.TOOL_PREFIX||'', '');
     log(`Handling tool call: name=${name}, args=${JSON.stringify(args)}`);
     if (!cachedEndpoint) {
         // If no cached endpoint, we can't proceed
