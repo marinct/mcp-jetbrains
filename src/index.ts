@@ -178,27 +178,17 @@ const server = new Server(
  * Handles listing tools by using the *cached* endpoint (no new search each time).
  */
 server.setRequestHandler(ListToolsRequestSchema, async () => {
-    log("Handling ListToolsRequestSchema request.");
-    if (!cachedEndpoint) {
-        // If no cached endpoint, we can't proceed
-        throw new Error("No working IDE endpoint available.");
-    }
-    try {
-        log(`Using cached endpoint ${cachedEndpoint} to list tools.`);
-        const toolsResponse = await fetch(`${cachedEndpoint}/mcp/list_tools`);
-        if (!toolsResponse.ok) {
-            log(`Failed to fetch tools with status ${toolsResponse.status}`);
-            throw new Error("Unable to list tools");
-        }
-        let tools = await toolsResponse.json();
-        tools.forEach((tool: any) => {
-            tool.name = `${process.env.TOOL_PREFIX||''}${tool.name}`;
-        });
-        log(`Successfully fetched tools: ${JSON.stringify(tools)}`);
-        return {tools};
-    } catch (error) {
-        log("Error handling ListToolsRequestSchema request:", error);
-        throw error;
+  log("Handling ListToolsRequestSchema request.");
+  if (!cachedEndpoint) {
+    // If no cached endpoint, we can't proceed
+    throw new Error("No working IDE endpoint available.");
+  }
+  try {
+    log(`Using cached endpoint ${cachedEndpoint} to list tools.`);
+    const toolsResponse = await fetch(`${cachedEndpoint}/mcp/list_tools`);
+    if (!toolsResponse.ok) {
+      log(`Failed to fetch tools with status ${toolsResponse.status}`);
+      throw new Error("Unable to list tools");
     }
     let tools = await toolsResponse.json();
     tools.forEach((tool: any) => {
